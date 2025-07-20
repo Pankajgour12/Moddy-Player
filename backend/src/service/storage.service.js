@@ -15,6 +15,8 @@ return new Promise((resolve,reject)=>{
 imagekit.upload({
     file : file.buffer,
     fileName : file.originalname,
+    folder : "Moddy-Audio",
+    
 },(err,result)=>{
     if(err){
         reject(err);

@@ -2,29 +2,20 @@ import React from 'react'
 import { useState } from 'react'
 import './MoodSongs.css'
 
-const MoodSongs = () => {
+const MoodSongs = ({ Songs }) => {
 
 
-    const [ Songs, setSongs ] = useState([
-        {
-            title: "test_title",
-            artist: "test_artist",
-            url: "test_url",
-        },
-        {
-            title: "test_title",
-            artist: "test_artist",
-            url: "test_url",
-        },
-        {
-            title: "test_title",
-            artist: "test_artist",
-            url: "test_url",
-        },
-    ])
+    const [ isPlaying, setIsPlaying ] = useState(null);
 
+    const handlePlayPause = (index) => {
+        if (isPlaying === index) {
+            setIsPlaying(null);
+        } else {
+            setIsPlaying(index);
+        }
+    };
 
-    return (
+return (
         <div className='mood-songs'>
             <h2>Recommended Songs</h2>
 
@@ -35,14 +26,27 @@ const MoodSongs = () => {
                         <p>{song.artist}</p>
                     </div>
                     <div className="play-pause-button">
-                        <i className="ri-pause-line"></i>
-                        <i className="ri-play-circle-fill"></i>
+                        {
+                            isPlaying === index &&
+                            <audio
+                                src={song.audio} style={{
+                                    display: 'none'
+                                }}
+                                autoPlay={isPlaying === index}
+                            ></audio>
+                        }
+                        <button onClick={() => handlePlayPause(index)}>
+                            {isPlaying === index ? <i className="ri-pause-line"></i> : <i className="ri-play-circle-fill"></i>}
+                        </button>
                     </div>
+
                 </div>
             ))}
 
         </div>
     )
 }
+   
+
 
 export default MoodSongs
